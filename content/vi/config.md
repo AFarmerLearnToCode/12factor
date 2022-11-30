@@ -8,7 +8,7 @@ Cấu hình của ứng dụng là những thứ có thể thay đổi qua các 
 
 Các ứng dụng thường lưu trữ các cấu hình như là hằng số trong mã nguồn. Điều này không phù hợp với nguyên tắc của 12-thừa số, yêu cầu **giới hạn tách biệt các cấu hình khỏi mã nguồn**. Các cấu hình thay đổi qua các triển khai, mã nguồn thì không.
 
-Một litmus test cho ứng dụng có các cấu hình được thừa số hoá chính xác là mã gốc có khả năng nguồn mở hoá bất kỳ lúc nào mà không lo sợ bị mất các thông tin đăng nhập.
+Một litmus test cho ứng dụng có các cấu hình được thừa số hoá chính xác là codebase có khả năng nguồn mở hoá bất kỳ lúc nào mà không lo sợ bị mất các thông tin đăng nhập.
 
 Chú ý rằng, định nghĩa của "cấu hình" không bao gồm các cấu hình nội tại của ứng dụng, như là `config/routes.rb` trong Rails, hoặc [các thành phần được kết nối](http://docs.spring.io/spring/docs/current/spring-framework-reference/html/beans.html) trong [Spring](http://spring.io/). Những cấu hình kiểu này thường không thay đổi giữa các triển khai, và do đó đã thực hiện tốt trong mã nguồn.
 

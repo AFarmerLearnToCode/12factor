@@ -1,14 +1,16 @@
-## XII. Tiến trình quản trị
-### Thực thi nhiệm vụ quản trị như là một tiến trình 
+## XII. Các process quản trị
+### Chạy các tác vụ quản trị/quản lý dưới dạng process chạy một-lần (one-off process)
 
-[Công thức cho các tiến trình](./concurrency) là danh sách các tiến trình được sử dụng để thực thi các nghiệp vụ của ứng dụng (như là điều khiển web) khi chúng vận hành. Ngoài ra, lập trình viên thường mong muốn thực hiện các nhiệm vụ quản trị ứng dụng như là: 
+One-off processes: Các process (chỉ cần) chạy một lần - để tạo sự thay đổi đến hệ thống một lần và mãi mãi.
 
-* Áp dụng các thay đổi cho cơ sở dữ liệu (như là `manage.py migrate` với Django, `rake db:migrate` với Rails).
-* Giao diện điều khiển trực tiếp ứng dụng (được biết đến như là vỏ [REPL](http://en.wikipedia.org/wiki/Read-eval-print_loop)) để vận hành các đoạn mã nguồn tuỳ ý hoặc kiểm tra các mô hình của ứng dụng đối với cơ sở dữ liệu hiện tại. Hầu hết các ngôn ngữ cung cấp REPL bằng cách thực thi một bộ biên dịch không có tham số như là (e.g. `python` or `perl`) hoặc trong vài trường hợp có các câu lệnh đặc biệt (như là `irb` với Ruby, `rails console` với Rails).
-* Thực thi một lần đoạn kịch bản được quản lý trên kho mã nguồn của ứng dụng (như là `php scripts/fix_bad_records.php`).
+[Sự hình thành của process quản trị](./concurrency) là sự ra đời của hàng loạt các process được sử dụng để thực thi các nghiệp vụ thông thường của ứng dụng (như là điều khiển các requests tới web) khi chúng vận hành. Ngoài ra, lập trình viên thường muốn thực hiện các task quản trị chỉ một lần hoặc các task bảo trì cho ứng dụng như là: 
 
-Tiến trình quản trị thực thi một lần nên đươcj vận hành trong một môi trường giống như [tiến trình vận hành lâu dài](./processes) của ứng dụng. Với một bản [phát hành](./build-release-run), các tiến trình quản trị sử dụng cùng [mã gốc](./codebase) và [cấu hình](./config) như bất kỳ các tiến trình vận hành trong bản phát hành đó. Đoạn mã quản trị cần được triển khai cùng với mã của ứng dụng để đảm bảo không có các vấn đề về mặt động bộ hoá.
+* Thực hiện chạy migrate (thay đổi cấu trúc, dữ liệu) cho database (dạng như lệnh `manage.py migrate` của Django, hay là `rake db:migrate` của Rails).
+* Khởi tạo console (được biết đến như là [REPL](http://en.wikipedia.org/wiki/Read-eval-print_loop)) để chạy các đoạn code tuỳ ý hoặc kiểm tra các mô hình của ứng dụng đối với database hiện tại. Hầu hết các ngôn ngữ cung cấp REPL bằng cách chạy trình thông dịch không có tham số (như với `python` hoặc `perl`) hoặc trong vài trường hợp thì có các câu lệnh đặc biệt (như là `irb` với Ruby, `rails console` với Rails).
+* Chạy các scripts một-lần mà được quản lý cùng trong source code của ứng dụng (như là `php scripts/fix_bad_records.php`).
 
-Kỹ thuật [cô lập phụ thuộc](./dependencies) tương tự được sử dụng cho cùng một kiểu tiến trình. Ví dụ tiến trình web sử dụng Ruby sử dụng câu lệnh `bundle exec thin start`, sau đó việc đồng bộ hoá cơ sở dữ liệu sử dụng câu lệnh `bundle exec rake db:migrate`. Tương tự, một chương trình Python sử dụng môi trường ảo cung cấp câu lệnh `bin/python` cho việc vận hành máy chủ web Tornado và bất cứ tiến trình quản trị thông qua `manage.py`.
+Các process quản trị một-lần nên được chạy trong cùng một môi trường giống như [các process thông thường chạy lâu dài khác](./processes) của ứng dụng. Với một bản [phát hành](./build-release-run), các process quản trị sử dụng cùng [codebase](./codebase) và [cấu hình](./config) như bất kỳ các process vận hành trong bản phát hành đó. Code cho các tính năng quản trị cần được triển khai cùng với code của ứng dụng để đảm bảo không có các vấn đề về mặt động bộ hoá.
 
-Mười hai hệ số ưu tiên sử dụng các ngôn ngữ cung cấp vỏ REPL linh hoạt, và làm nó trở nên dễ dàng cho việc thực thi một lần các kịch bản. Trong môi trường triển khai cục bộ, lập trình viên thực thi các tiến trình quản trị bằng cách thực thi trực tiếp các câu lệnh trong thư mục lưu trữ mã nguồn của ứng dụng. Trong môi trường vận hành thực tế, lập trình viên có thể sử dụng ssh hoặc các câu lệnh điều khiển thực thi cơ chế được cung cấp bởi môi trường vận hành của quá trình triển khai để thực thi các tiến trình.
+Các kỹ thuật [loại bỏ sự phụ thuộc](./dependencies) tương tự được sử dụng cho tất cả các kiểu process. Ví dụ một process của web sử dụng Ruby sử dụng câu lệnh `bundle exec thin start`, sau đó việc migrate database sử dụng câu lệnh `bundle exec rake db:migrate`. Tương tự, một chương trình Python sử dụng Virtualenv cần sử dung câu lệnh `bin/python` cho việc vận hành máy chủ web Tornado và bất cứ process quản trị thông qua `manage.py`.
+
+"12 Yếu Tố" ưu tiên sử dụng các ngôn ngữ cung cấp REPL linh hoạt, và làm nó trở nên dễ dàng cho việc chạy các script một-lần. Trên môi trường local, lập trình viên thực thi các process quản trị bằng cách chạy trực tiếp các câu lệnh lưu trữ trong cùng thư mục chứa code của ứng dụng. Còn trên môi trường production, lập trình viên phải dùng tới ssh hoặc các cơ chế chạy câu lệnh từ xa khác nhau mà được cung cấp bởi môi trường vận hành của quá trình deploy để chạy các process.

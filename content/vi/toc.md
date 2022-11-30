@@ -1,8 +1,8 @@
 12 hệ số
 ========
 
-## [I. Mã gốc](./codebase)
-### Một mã gốc được theo dõi với hệ thống quản lý phiên bản, và nhiều lần triển khai
+## [I. Codebase](./codebase)
+### Một codebase được theo dõi với hệ thống quản lý phiên bản, và nhiều lần triển khai
 
 ## [II. Các phụ thuộc](./dependencies)
 ### Khai báo rõ ràng và phân tách các phụ thuộc

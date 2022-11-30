@@ -7,7 +7,7 @@ Trước đây, có sự khác biệt nhất định giữa quá trình phát tr
 * **Về tính cá nhân**: Lập trình viên viết mã nguồn, người vận hành triển khai mã nguồn đó.
 * **Về công cụ**: Lập trình viên có thể sử dụng tập các công cụ như là Nginx, SQLite, và OS X, trong khi triển khai thực tế sử dụng Apache, MySQL, và Linux.
 
-**Ứng dụng áp dụng mười hai hệ số được thiết kế để [triển khai liên tục](http://www.avc.com/a_vc/2011/02/continuous-deployment.html) bằng việc giảm thiểu khác biệt giữa quá trình triển khai và vận hành thực tế.** Chúng ta cùng xem lại các sự khác biệt ở trên:
+**Ứng dụng áp dụng "12 Yếu Tố" được thiết kế để [triển khai liên tục](http://www.avc.com/a_vc/2011/02/continuous-deployment.html) bằng việc giảm thiểu khác biệt giữa quá trình triển khai và vận hành thực tế.** Chúng ta cùng xem lại các sự khác biệt ở trên:
 
 * Giảm thiểu thời gian: lập trình viên có thể viết mã nguồn và nó được triển khai vài giờ, thậm chí vài phút sau đó.
 * Giảm thiểu tính cá nhân: lập trình viên người viết ra các dòng lệnh, có thể tham gia trực tiếp vào quá trình triển khai và quan sát các hình vi của ứng dụng trong môi trường vận hành thực tế.
@@ -18,7 +18,7 @@ Tổng kết vấn đề trên thông qua bảng sau:
   <tr>
     <th></th>
     <th>Ứng dụng truyền thống</th>
-    <th>Ứng dụng sử dụng mười hai hệ số</th>
+    <th>Ứng dụng sử dụng "12 Yếu Tố"</th>
   </tr>
   <tr>
     <th>Thời gian giữa các lần triển khai</th>
@@ -68,7 +68,7 @@ Tổng kết vấn đề trên thông qua bảng sau:
 
 Lập trình viên thường thích sử dụng các dịch vụ hỗ trợ đơn giản trên môi trường cục bộ của họ, trong khi nhiều dịch vụ hỗ trợ mạnh mẽ và an toàn hơn được sử dụng trong môi trường vận hành thực tế. Ví dụ, sử dụng SQLite ở cục bộ và Postgresql trong vận hành, hoặc sử dụng trực tiếp bộ nhớ cho bộ đệm trong phát triển và Memcached trong vận hành.
 
-**Ứng dụng sử dụng mười hai hệ số không cho phép sử dụng dịch vụ hỗ trợ khác nhau giữa môi trường phát triển và vận hành**, mặc dù các bộ mô phỏng có thể trừu tượng hoá bất kỳ sự khác biệt của dịch vụ hỗ trợ. Sự khác biệt giữa dịch vụ hỗ trợ có nghĩa là dù bất kỳ sự không đồng bộ nhỏ nào cũng có thể mở rộng, là nguyên nhân cho việc mã nguồn có thể hoạt động tốt ở môi trường phát triển hoặc kiểm thử nhưng không hoạt động trong môi trường thực tế. Các kiểu lỗi này làm cản trở quá trình triển khai liên tục. Chi phí cho các cản trở và làm giảm ảnh hưởng cho chúng thường rất tốn kém trong suốt quá trình phát triển của một ứng dụng.
+**Ứng dụng sử dụng "12 Yếu Tố" không cho phép sử dụng dịch vụ hỗ trợ khác nhau giữa môi trường phát triển và vận hành**, mặc dù các bộ mô phỏng có thể trừu tượng hoá bất kỳ sự khác biệt của dịch vụ hỗ trợ. Sự khác biệt giữa dịch vụ hỗ trợ có nghĩa là dù bất kỳ sự không đồng bộ nhỏ nào cũng có thể mở rộng, là nguyên nhân cho việc mã nguồn có thể hoạt động tốt ở môi trường phát triển hoặc kiểm thử nhưng không hoạt động trong môi trường thực tế. Các kiểu lỗi này làm cản trở quá trình triển khai liên tục. Chi phí cho các cản trở và làm giảm ảnh hưởng cho chúng thường rất tốn kém trong suốt quá trình phát triển của một ứng dụng.
 
 Các dịch vụ đơn giản ở cục bộ không được ưu tiên như các dịch vụ tương tự. Các dịch vụ hỗ trợ hiện đại như  Memcached, PostgreSQL, và RabbitMQ không quá khó để cài đặt thông qua các dịch vụ đóng gói như là [Homebrew](http://mxcl.github.com/homebrew/) và [apt-get](https://help.ubuntu.com/community/AptGet/Howto). Ngoài ra, các công cụ cung cấp khai báo [Chef](http://www.opscode.com/chef/) và [Puppet](http://docs.puppetlabs.com/) kết hợp với các môi trường ảo hoá đơn giản [Vagrant](http://vagrantup.com/) cho phép lập trình viên có thể vận hành ở cục bộ một môi trường khá giống với môi trường vận hành thực tế. Chi phí cho việc cài đặt và sử dụng nhỏ hơn rất nhiều so với chi phí của triển khai liên tục và sự khác biệt giữa môi trường phát triển và vận hành.
 
